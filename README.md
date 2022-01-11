@@ -14,6 +14,7 @@ To replace default Razer Synapse control for Razer's laptops
 ## TODO
 + ABI for other languages
 + Examples
++ Add other compilers like MinGW, GCC on Linux
 
 ## Supported laptops
 <details>
