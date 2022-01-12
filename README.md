@@ -16,6 +16,10 @@ To replace default Razer Synapse control for Razer's laptops
 + Examples
 + Add other compilers like MinGW, GCC on Linux
 
+## Supported languages
++ C/C++ as shared library (MSVC build is provided in releases)
++ C# (https://github.com/Meetem/RazerBladeSharp)
+
 ## Supported laptops
 <details>
   <summary>Click to expand</summary>
