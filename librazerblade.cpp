@@ -306,7 +306,7 @@ DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt)
 //#endregion
 
 //#region Laptop
-DllExport LaptopPtr CallType librazerblade_Laptop_new(LaptopDescription description, void* usbHandle, UsbDevice* device)
+DllExport LaptopPtr CallType librazerblade_Laptop_new(LaptopDescription description, UsbHandle usbHandle, UsbDevice device)
 {
     return new Laptop(description, usbHandle, device);
 }
@@ -317,7 +317,7 @@ DllExport void CallType librazerblade_Laptop_delete(LaptopPtr self)
     delete instance;
 }
 
-DllExport UsbDevice* CallType librazerblade_Laptop_getDevice(LaptopPtr self)
+DllExport UsbDevice CallType librazerblade_Laptop_getDevice(LaptopPtr self)
 {
     auto instance = (Laptop*) self;
     if (instance == nullptr)
@@ -326,22 +326,22 @@ DllExport UsbDevice* CallType librazerblade_Laptop_getDevice(LaptopPtr self)
     return instance->getDevice();
 }
 
-DllExport void* CallType librazerblade_Laptop_getUsbHandle(LaptopPtr self)
+DllExport UsbHandle CallType librazerblade_Laptop_getUsbHandle(LaptopPtr self)
 {
     auto instance = (Laptop*) self;
     if (instance == nullptr)
         return {};
 
-    return (void*) instance->getUsbHandle();
+    return instance->getUsbHandle();
 }
 
-DllExport void* CallType librazerblade_Laptop_setUsbHandle(LaptopPtr self, void* v)
+DllExport void CallType librazerblade_Laptop_setUsbHandle(LaptopPtr self, UsbHandle v)
 {
     auto instance = (Laptop*) self;
     if (instance == nullptr)
-        return {};
+        return;
 
-    return instance->setUsbHandle(v);
+    instance->setUsbHandle(v);
 }
 
 DllExport uint8_t CallType librazerblade_Laptop_clampFan(LaptopPtr self, int32_t v)

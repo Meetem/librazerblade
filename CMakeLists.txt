@@ -9,7 +9,7 @@ add_definitions(-DWITH_DEFAULT_DEVICES)
 
 
 add_library(librazerblade SHARED
-        Usb/UsbInterface.cpp Usb/UsbInterface.h Core.h BladeStructs.h Utils.cpp Utils.h librazerblade.h UsbInterfaceStructs.h librazerblade.cpp Packets/PacketFactory.cpp Packets/PacketFactory.h Packets/PacketUtil.h LaptopDescription.h Laptop.cpp Laptop.h Packets/PacketUtil.cpp libusbImplementation.h DescriptionStorage.cpp DescriptionStorage.h BladeDeviceId.h)
+        Usb/UsbInterface.cpp Usb/UsbInterface.h Core.h BladeStructs.h Utils.cpp Utils.h librazerblade.h UsbInterfaceStructs.h librazerblade.cpp Packets/PacketFactory.cpp Packets/PacketFactory.h Packets/PacketUtil.h LaptopDescription.h Laptop.cpp Laptop.h Packets/PacketUtil.cpp DescriptionStorage.cpp DescriptionStorage.h BladeDeviceId.h)
 
 
 set_target_properties(librazerblade PROPERTIES PUBLIC_HEADER "librazerblade.h;Core.h;UsbInterfaceStructs.h;BladeStructs.h;BladeDeviceId.h;LaptopDescription.h")

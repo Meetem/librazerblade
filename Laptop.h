@@ -18,11 +18,13 @@ namespace librazerblade {
     class DllExport Laptop
     {
     public:
-        Laptop(LaptopDescription description, void* usbHandle, UsbDevice* device);
+        Laptop(LaptopDescription description, UsbHandle usbHandle, UsbDevice device);
+        ~Laptop();
 
-        UsbDevice* getDevice() const;
-        const void* getUsbHandle() const;
-        void* setUsbHandle(void* v);
+        UsbDevice getDevice() const;
+        UsbHandle getUsbHandle() const;
+
+        void setUsbHandle(UsbHandle handle);
         uint8_t clampFan(int32_t v) const;
         BladeCapabilities getCapabilities() const;
         LaptopDescription getDescription();
@@ -51,8 +53,8 @@ namespace librazerblade {
         std::mutex laptopMutex;
         LaptopDescription description;
         LaptopState state;
-        void* usbHandle;
-        UsbDevice* device;
+        UsbHandle usbHandle;
+        UsbDevice device;
     };
 }
 

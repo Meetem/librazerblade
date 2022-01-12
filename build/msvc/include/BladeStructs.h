@@ -62,6 +62,11 @@ enum BladePacketType
     PktChromaSetRow = 0x0b,
 };
 
+typedef struct UsbHandle_s{
+    int32_t autoRelease;
+    void *handle;
+}UsbHandle;
+
 typedef struct KeyboardRow_s
 {
     uint8_t rowid; // Row ID (0-5) used by the EC to update each row

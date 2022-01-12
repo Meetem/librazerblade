@@ -6,7 +6,7 @@
 
 namespace librazerblade {
 
-    Laptop::Laptop(LaptopDescription description, void* usbHandle, UsbDevice* device) :
+    Laptop::Laptop(LaptopDescription description, UsbHandle usbHandle, UsbDevice device) :
             description(description),
             usbHandle(usbHandle),
             device(device),
@@ -15,22 +15,21 @@ namespace librazerblade {
 
     }
 
-    UsbDevice* Laptop::getDevice() const
+    UsbDevice Laptop::getDevice() const
     {
         return device;
     }
 
-    const void* Laptop::getUsbHandle() const
+    UsbHandle Laptop::getUsbHandle() const
     {
         return usbHandle;
     }
 
-    void* Laptop::setUsbHandle(void* v)
+    void Laptop::setUsbHandle(UsbHandle v)
     {
         LockGuard autoLockq(queryMutex);
         LockGuard lock(laptopMutex);
         this->usbHandle = v;
-        return v;
     }
 
     uint8_t Laptop::clampFan(int32_t v) const
@@ -257,7 +256,7 @@ namespace librazerblade {
         UsbPacketResult result{};
 
         do {
-            auto pktResult = gUsb.sendPayload(usbHandle, packet, 1000, &result, device->aux);
+            auto pktResult = gUsb.sendPayload(usbHandle.handle, packet, 1000, &result, device.aux);
             if (output != nullptr)
                 *output = pktResult;
 
@@ -270,5 +269,13 @@ namespace librazerblade {
         } while (numRetries > 0);
 
         return result;
+    }
+
+    Laptop::~Laptop()
+    {
+        if(usbHandle.autoRelease){
+            usbHandle.autoRelease = false;
+            gUsb.closeHandle(usbHandle.handle, &device);
+        }
     }
 }

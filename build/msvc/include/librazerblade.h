@@ -81,11 +81,11 @@ DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt)
 
 //#region Laptop
 DllExport LaptopPtr
-CallType librazerblade_Laptop_new(LaptopDescription description, void* usbHandle, UsbDevice* device);
+CallType librazerblade_Laptop_new(LaptopDescription description, UsbHandle usbHandle, UsbDevice device);
 DllExport void CallType librazerblade_Laptop_delete(LaptopPtr self);
-DllExport UsbDevice* CallType librazerblade_Laptop_getDevice(LaptopPtr self);
-DllExport void* CallType librazerblade_Laptop_getUsbHandle(LaptopPtr self);
-DllExport void* CallType librazerblade_Laptop_setUsbHandle(LaptopPtr self, void* v);
+DllExport UsbDevice CallType librazerblade_Laptop_getDevice(LaptopPtr self);
+DllExport UsbHandle CallType librazerblade_Laptop_getUsbHandle(LaptopPtr self);
+DllExport void CallType librazerblade_Laptop_setUsbHandle(LaptopPtr self, UsbHandle v);
 DllExport uint8_t CallType librazerblade_Laptop_clampFan(LaptopPtr self, int32_t v);
 DllExport BladeCapabilities CallType librazerblade_Laptop_getCapabilities(LaptopPtr self);
 DllExport LaptopDescription CallType librazerblade_Laptop_getDescription(LaptopPtr self);
