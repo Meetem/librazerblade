@@ -39,6 +39,7 @@ typedef struct LaptopState_s
 {
     uint8_t fanSpeed;
     uint8_t powerMode;
+    uint8_t manualFanSpeed;
     KeyboardInfo keyboardInfo;
 } LaptopState;
 

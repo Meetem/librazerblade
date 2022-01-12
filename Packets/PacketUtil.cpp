@@ -22,6 +22,14 @@ namespace librazerblade {
         return pkt->args[2];
     }
 
+    uint8_t PacketUtil::getManualFanSpeed(RazerPacket* pkt)
+    {
+        if (pkt == nullptr)
+            return 0;
+
+        return pkt->args[3];
+    }
+
     int32_t PacketUtil::getFanValue(RazerPacket* pkt)
     {
         return getFanValueRaw(pkt) * 100;

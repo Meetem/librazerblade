@@ -90,6 +90,7 @@ namespace librazerblade {
 
         if (result.isSuccess) {
             state.powerMode = PacketUtil::getPowerMode(&output);
+            state.manualFanSpeed = PacketUtil::getManualFanSpeed(&output);
         }
 
         return result;
@@ -195,6 +196,7 @@ namespace librazerblade {
         auto r = sendPacketWithRetry(&pkt, &output, numRetries);
         if (r.isSuccess) {
             state.powerMode = powerMode;
+            state.manualFanSpeed = autoFanSpeed ? 0 : 1;
         }
 
         return r;

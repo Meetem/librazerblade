@@ -71,11 +71,9 @@ CallType librazerblade_PacketFactory_brightness(uint8_t brightness, BladePacketD
 
 //#region Packet Util
 DllExport uint8_t CallType librazerblade_PacketUtil_getFanValueRaw(RazerPacket* pkt);
-
 DllExport int32_t CallType librazerblade_PacketUtil_getFanValue(RazerPacket* pkt);
-
+DllExport uint8_t CallType librazerblade_PacketUtil_getManualFanSpeed(RazerPacket* pkt);
 DllExport uint8_t CallType librazerblade_PacketUtil_getBrightness(RazerPacket* pkt);
-
 DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt);
 //#endregion
 

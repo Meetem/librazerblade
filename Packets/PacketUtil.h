@@ -12,13 +12,10 @@ namespace librazerblade {
     {
     public:
         static uint8_t getFanValueRaw(RazerPacket* pkt);
-
         static uint8_t getPowerMode(RazerPacket* pkt);
-
         static int32_t getFanValue(RazerPacket* pkt);
-
         static uint8_t getBrightness(RazerPacket* pkt);
-
+        static uint8_t getManualFanSpeed(RazerPacket* pkt);
         static KeyboardRow getRow(RazerPacket* pkt);
     };
 }

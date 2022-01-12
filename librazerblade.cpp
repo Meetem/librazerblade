@@ -294,6 +294,11 @@ DllExport int32_t CallType librazerblade_PacketUtil_getFanValue(RazerPacket* pkt
     return PacketUtil::getFanValue(pkt);
 }
 
+DllExport uint8_t CallType librazerblade_PacketUtil_getManualFanSpeed(RazerPacket* pkt)
+{
+    return PacketUtil::getManualFanSpeed(pkt);
+}
+
 DllExport uint8_t CallType librazerblade_PacketUtil_getBrightness(RazerPacket* pkt)
 {
     return PacketUtil::getBrightness(pkt);
