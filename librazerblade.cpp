@@ -177,6 +177,8 @@ DllExport void CallType librazerblade_deinitialize()
 #ifdef LIBUSB_DEFAULT_IMPLEMENTATION
     closeLibUsb();
 #endif
+    
+    librazerblade::gStorage.clear();
 }
 
 
@@ -311,7 +313,8 @@ DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt)
 //#endregion
 
 //#region Laptop
-DllExport LaptopPtr CallType librazerblade_Laptop_new(LaptopDescription description, UsbHandle usbHandle, UsbDevice device)
+DllExport LaptopPtr
+CallType librazerblade_Laptop_new(LaptopDescription description, UsbHandle usbHandle, UsbDevice device)
 {
     return new Laptop(description, usbHandle, device);
 }
@@ -531,6 +534,38 @@ DllExport void CallType librazerblade_DescriptionStorage_set(int32_t idx, Laptop
 {
     return gStorage.set(idx, description);
 }
+DllExport void CallType librazerblade_DescriptionStorage_clear()
+{
+    return gStorage.clear();
+}
 //#endregion
+
+//#region Memory
+DllExport void* CallType librazerblade_malloc(int32_t size)
+{
+    return malloc(size);
+}
+
+DllExport UserData CallType librazerblade_UserData_fromMemory(void* ptr, int32_t size, int32_t autoFree)
+{
+    if (ptr == nullptr) {
+        return UserData{nullptr, 0, 0};
+    }
+
+    auto mem = malloc(size);
+    if (mem == nullptr) {
+        return UserData{nullptr, 0, 0};
+    }
+
+    memcpy(mem, ptr, size);
+    return UserData{mem, size, autoFree};
+}
+
+DllExport void CallType librazerblade_free(void* ptr)
+{
+    free(ptr);
+}
+//#endregion
+
 }
 

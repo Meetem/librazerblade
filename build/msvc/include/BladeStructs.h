@@ -67,6 +67,13 @@ typedef struct UsbHandle_s{
     void *handle;
 }UsbHandle;
 
+typedef struct UserData_s
+{
+    void *ptr;
+    int32_t length;
+    int32_t autoFree;
+}UserData;
+
 typedef struct KeyboardRow_s
 {
     uint8_t rowid; // Row ID (0-5) used by the EC to update each row

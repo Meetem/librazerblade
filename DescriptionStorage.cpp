@@ -146,4 +146,15 @@ namespace librazerblade {
             this->put(d);
         }
     }
+
+    void DescriptionStorage::clear()
+    {
+        for(auto &d : descriptions){
+            if(d.userData.ptr != nullptr && d.userData.autoFree > 0){
+                free(d.userData.ptr);
+            }
+        }
+
+        descriptions.clear();
+    }
 }

@@ -17,6 +17,7 @@ namespace librazerblade {
         void put(LaptopDescription description);
         LaptopDescription *getAll(int32_t *size);
         void set(int32_t idx, LaptopDescription description);
+        void clear();
 
         void initializeWithDefault();
     protected:

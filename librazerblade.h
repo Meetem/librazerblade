@@ -119,8 +119,14 @@ CallType librazerblade_DescriptionStorage_get(uint16_t vendor, uint16_t product,
 DllExport void CallType librazerblade_DescriptionStorage_put(LaptopDescription description);
 DllExport LaptopDescription* CallType librazerblade_DescriptionStorage_getAll(int32_t* size);
 DllExport void CallType librazerblade_DescriptionStorage_set(int32_t idx, LaptopDescription description);
+DllExport void CallType librazerblade_DescriptionStorage_clear();
 //#endregion
 
+//#region Memory
+DllExport void* CallType librazerblade_malloc(int32_t size);
+DllExport UserData CallType librazerblade_UserData_fromMemory(void *ptr, int32_t size, int32_t autoFree);
+DllExport void CallType librazerblade_free(void *ptr);
+//#endregion
 #ifdef __cplusplus
 }
 #endif

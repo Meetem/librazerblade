@@ -32,7 +32,7 @@ typedef struct LaptopDescription_s
     char name[256];
     LaptopFan fan;
     BladeCapabilities capabilities;
-    void* userData;
+    UserData userData;
 } LaptopDescription;
 
 typedef struct LaptopState_s
