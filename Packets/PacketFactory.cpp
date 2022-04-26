@@ -10,6 +10,8 @@ namespace librazerblade {
         switch (type) {
             case BladePacketType::PktFan:
                 return 0x03;
+            case BladePacketType::PktBoostMode:
+                return 0x03;
             case BladePacketType::PktPower:
                 return 0x04;
             case BladePacketType::PktGetBrightness:
@@ -49,6 +51,18 @@ namespace librazerblade {
         new_report.command_id.parts.id = type;
         new_report.data_size = size;
         return new_report;
+    }
+
+    RazerPacket PacketFactory::boost(BladeBoostId boostId, uint8_t mode, BladePacketDirection direction)
+    {
+        if(direction == Get)
+            mode = 0;
+
+        RazerPacket pkt = createRazerPacket(0x0d, PktBoostMode, direction);
+        pkt.args[0] = 0x00;
+        pkt.args[1] = (uint8_t)boostId;
+        pkt.args[2] = mode;
+        return pkt;
     }
 
     RazerPacket PacketFactory::fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction)

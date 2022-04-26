@@ -81,6 +81,30 @@ namespace librazerblade {
         return result;
     }
 
+    UsbPacketResult Laptop::queryBoost(int numRetries)
+    {
+        LockGuard autoLock(laptopMutex);
+        auto pkt = PacketFactory::boost(BoostCpu, 0, Get);
+        auto output = PacketFactory::empty();
+        auto result = sendPacketWithRetry(&pkt, &output, numRetries);
+
+        if (result.isSuccess) {
+            state.cpuBoost = PacketUtil::getBoostValue(&output);
+        }else{
+            return result;
+        }
+
+        pkt = PacketFactory::boost(BoostGpu, 0, Get);
+        output = PacketFactory::empty();
+        result = sendPacketWithRetry(&pkt, &output, numRetries);
+
+        if (result.isSuccess) {
+            state.gpuBoost = PacketUtil::getBoostValue(&output);
+        }
+
+        return result;
+    }
+
     UsbPacketResult Laptop::queryPowerMode(int numRetries)
     {
         LockGuard autoLock(laptopMutex);
@@ -144,6 +168,10 @@ namespace librazerblade {
             result.results[getArrayIndex(BladeQuery::QueryBrightness)] = queryBrightness(numRetries);
         }
 
+        if (query & BladeQuery::QueryBoost) {
+            result.results[getArrayIndex(BladeQuery::QueryBoost)] = queryBoost(numRetries);
+        }
+
         if (query & BladeQuery::QueryFanSpeed) {
             result.results[getArrayIndex(BladeQuery::QueryFanSpeed)] = queryFanSpeed(numRetries);
         }
@@ -186,6 +214,22 @@ namespace librazerblade {
         auto r = sendPacketWithRetry(&pkt, &output, numRetries);
         if (r.isSuccess) {
             state.fanSpeed = clamped;
+        }
+
+        return r;
+    }
+
+    UsbPacketResult Laptop::setBoost(BladeBoostId boostId, uint8_t value, int numRetries)
+    {
+        auto pkt = PacketFactory::boost(boostId, value, Set);
+        auto output = PacketFactory::empty();
+        auto r = sendPacketWithRetry(&pkt, &output, numRetries);
+
+        if (r.isSuccess) {
+            if(boostId == BoostCpu)
+                state.cpuBoost = value;
+            else if(boostId == BoostGpu)
+                state.gpuBoost = value;
         }
 
         return r;

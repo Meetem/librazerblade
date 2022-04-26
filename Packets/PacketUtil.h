@@ -17,6 +17,7 @@ namespace librazerblade {
         static uint8_t getBrightness(RazerPacket* pkt);
         static uint8_t getManualFanSpeed(RazerPacket* pkt);
         static KeyboardRow getRow(RazerPacket* pkt);
+        static uint8_t getBoostValue(RazerPacket* pkt);
     };
 }
 #endif //LIBRAZERBLADE_PACKETUTIL_H

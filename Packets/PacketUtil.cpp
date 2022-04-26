@@ -6,6 +6,14 @@
 #include <memory>
 
 namespace librazerblade {
+    uint8_t PacketUtil::getBoostValue(RazerPacket* pkt)
+    {
+        if (pkt == nullptr)
+            return 0;
+
+        return pkt->args[2];
+    }
+
     uint8_t PacketUtil::getFanValueRaw(RazerPacket* pkt)
     {
         if (pkt == nullptr)

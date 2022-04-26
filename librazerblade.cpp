@@ -283,6 +283,12 @@ CallType librazerblade_PacketFactory_brightness(uint8_t brightness, BladePacketD
 {
     return PacketFactory::brightness(brightness, direction);
 }
+
+DllExport RazerPacket
+CallType librazerblade_PacketFactory_boost(BladeBoostId id, uint8_t value, BladePacketDirection direction)
+{
+    return PacketFactory::boost(id, value, direction);
+}
 //#endregion
 
 //#region Packet Util
@@ -309,6 +315,11 @@ DllExport uint8_t CallType librazerblade_PacketUtil_getBrightness(RazerPacket* p
 DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt)
 {
     return PacketUtil::getRow(pkt);
+}
+
+DllExport uint8_t CallType librazerblade_PacketUtil_getBoostValue(RazerPacket* pkt)
+{
+    return PacketUtil::getBoostValue(pkt);
 }
 //#endregion
 
@@ -425,6 +436,15 @@ DllExport UsbPacketResult CallType librazerblade_Laptop_queryBrightness(LaptopPt
     return instance->queryBrightness(numRetries);
 }
 
+DllExport UsbPacketResult CallType librazerblade_Laptop_queryBoost(LaptopPtr self, int numRetries)
+{
+    auto instance = (Laptop*) self;
+    if (instance == nullptr)
+        return {};
+
+    return instance->queryBoost(numRetries);
+}
+
 DllExport UsbPacketResult CallType librazerblade_Laptop_queryChromaRow(LaptopPtr self, int rowId, int numRetries)
 {
     auto instance = (Laptop*) self;
@@ -497,6 +517,15 @@ DllExport UsbPacketResult CallType librazerblade_Laptop_sendKeyboardRow(LaptopPt
         return {};
 
     return instance->sendKeyboardRow(row, numRetries);
+}
+
+DllExport UsbPacketResult CallType librazerblade_Laptop_setBoost(LaptopPtr self, BladeBoostId boostId, uint8_t value, int numRetries)
+{
+    auto instance = (Laptop*) self;
+    if (instance == nullptr)
+        return {};
+
+    return instance->setBoost(boostId, value, numRetries);
 }
 
 DllExport UsbPacketResult CallType

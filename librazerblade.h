@@ -59,7 +59,8 @@ DllExport RazerPacket
 CallType librazerblade_PacketFactory_fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction = Set);
 
 DllExport RazerPacket
-CallType librazerblade_PacketFactory_power(uint8_t powerMode, int32_t autoFanSpeed, BladePacketDirection direction = Set);
+CallType librazerblade_PacketFactory_power(uint8_t powerMode, int32_t autoFanSpeed,
+                                           BladePacketDirection direction = Set);
 
 DllExport RazerPacket CallType librazerblade_PacketFactory_row(KeyboardRow row, BladePacketDirection direction = Set);
 
@@ -67,6 +68,9 @@ DllExport RazerPacket CallType librazerblade_PacketFactory_applyChroma();
 
 DllExport RazerPacket
 CallType librazerblade_PacketFactory_brightness(uint8_t brightness, BladePacketDirection direction = Set);
+
+DllExport RazerPacket
+CallType librazerblade_PacketFactory_boost(BladeBoostId id, uint8_t value, BladePacketDirection direction = Set);
 //#endregion
 
 //#region Packet Util
@@ -74,6 +78,7 @@ DllExport uint8_t CallType librazerblade_PacketUtil_getFanValueRaw(RazerPacket* 
 DllExport int32_t CallType librazerblade_PacketUtil_getFanValue(RazerPacket* pkt);
 DllExport uint8_t CallType librazerblade_PacketUtil_getManualFanSpeed(RazerPacket* pkt);
 DllExport uint8_t CallType librazerblade_PacketUtil_getBrightness(RazerPacket* pkt);
+DllExport uint8_t CallType librazerblade_PacketUtil_getBoostValue(RazerPacket* pkt);
 DllExport KeyboardRow CallType librazerblade_PacketUtil_getRow(RazerPacket* pkt);
 //#endregion
 
@@ -93,11 +98,14 @@ DllExport LaptopState* CallType librazerblade_Laptop_getStatePtrUnsafe(LaptopPtr
 DllExport UsbPacketResult CallType librazerblade_Laptop_queryFanSpeed(LaptopPtr self, int numRetries = 0);
 DllExport UsbPacketResult CallType librazerblade_Laptop_queryPowerMode(LaptopPtr self, int numRetries = 0);
 DllExport UsbPacketResult CallType librazerblade_Laptop_queryBrightness(LaptopPtr self, int numRetries = 0);
+DllExport UsbPacketResult CallType librazerblade_Laptop_queryBoost(LaptopPtr self, int numRetries = 0);
 DllExport UsbPacketResult CallType librazerblade_Laptop_queryChromaRow(LaptopPtr self, int rowId, int numRetries = 0);
 DllExport LaptopQueryResult CallType librazerblade_Laptop_query(LaptopPtr self, BladeQuery query, int numRetries = 0);
 DllExport LaptopQueryResult
 CallType librazerblade_Laptop_queryRows(LaptopPtr self, BladeQueryRows rows, int numRetries = 0);
-DllExport UsbPacketResult CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries = 0, int fanId = 1, int clampSpeed = 1);
+DllExport UsbPacketResult
+CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries = 0, int fanId = 1,
+                                          int clampSpeed = 1);
 DllExport UsbPacketResult
 CallType librazerblade_Laptop_setPowerMode(LaptopPtr self, uint8_t powerMode, int32_t autoFanSpeed, int numRetries = 0);
 DllExport UsbPacketResult
@@ -105,6 +113,10 @@ CallType librazerblade_Laptop_setBrightness(LaptopPtr self, uint8_t brightness, 
 DllExport UsbPacketResult CallType librazerblade_Laptop_applyChroma(LaptopPtr self, int numRetries = 0);
 DllExport UsbPacketResult
 CallType librazerblade_Laptop_sendKeyboardRow(LaptopPtr self, KeyboardRow row, int numRetries = 0);
+
+DllExport UsbPacketResult
+CallType librazerblade_Laptop_setBoost(LaptopPtr self, BladeBoostId boostId, uint8_t value, int numRetries = 0);
+
 DllExport UsbPacketResult
 CallType librazerblade_Laptop_sendPacketWithRetry(LaptopPtr self, RazerPacket* packet, RazerPacket* output,
                                                   int numRetries = 0,
@@ -124,8 +136,8 @@ DllExport void CallType librazerblade_DescriptionStorage_clear();
 
 //#region Memory
 DllExport void* CallType librazerblade_malloc(int32_t size);
-DllExport UserData CallType librazerblade_UserData_fromMemory(void *ptr, int32_t size, int32_t autoFree);
-DllExport void CallType librazerblade_free(void *ptr);
+DllExport UserData CallType librazerblade_UserData_fromMemory(void* ptr, int32_t size, int32_t autoFree);
+DllExport void CallType librazerblade_free(void* ptr);
 //#endregion
 #ifdef __cplusplus
 }

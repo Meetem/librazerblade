@@ -17,8 +17,9 @@ enum BladeQuery
     QueryFanSpeed = 0b00000001,
     QueryPowerMode = 0b00000010,
     QueryBrightness = 0b00000100,
+    QueryBoost = 0b00001000,
     QueryAll = 0x7FFFFFFF,
-    QueryCount = 3,
+    QueryCount = 4,
 };
 
 enum BladeQueryRows
@@ -52,27 +53,35 @@ enum BladePacketDirection
     DeviceToHost = Get
 };
 
+enum BladeBoostId
+{
+    BoostCpu = 0x01,
+    BoostGpu = 0x02
+};
+
 enum BladePacketType
 {
     PktFan = 0x01,
     PktPower = 0x02,
+    PktBoostMode = 0x07,
     PktGetBrightness = 0x03,
     PktSetBrightness = 0x04,
     PktChromaApply = 0x0a,
     PktChromaSetRow = 0x0b,
 };
 
-typedef struct UsbHandle_s{
+typedef struct UsbHandle_s
+{
     int32_t autoRelease;
-    void *handle;
-}UsbHandle;
+    void* handle;
+} UsbHandle;
 
 typedef struct UserData_s
 {
-    void *ptr;
+    void* ptr;
     int32_t length;
     int32_t autoFree;
-}UserData;
+} UserData;
 
 typedef struct KeyboardRow_s
 {

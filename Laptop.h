@@ -36,6 +36,7 @@ namespace librazerblade {
         UsbPacketResult queryPowerMode(int numRetries = 0);
         UsbPacketResult queryBrightness(int numRetries = 0);
         UsbPacketResult queryChromaRow(int rowId, int numRetries = 0);
+        UsbPacketResult queryBoost(int numRetries);
         LaptopQueryResult query(BladeQuery query, int numRetries = 0);
         LaptopQueryResult queryRows(BladeQueryRows rows, int numRetries = 0);
         UsbPacketResult setFanSpeed(int32_t speed, int numRetries = 0, int fanId = 1, bool clampSpeed = true);
@@ -45,6 +46,7 @@ namespace librazerblade {
         UsbPacketResult sendKeyboardRow(KeyboardRow row, int numRetries = 0);
         UsbPacketResult
         sendPacketWithRetry(RazerPacket* packet, RazerPacket* output, int numRetries = 0, int retryIntervalMs = 250);
+        UsbPacketResult setBoost(BladeBoostId boostId, uint8_t value, int numRetries);
 
         static int getArrayIndex(int32_t q);
 
@@ -55,6 +57,8 @@ namespace librazerblade {
         LaptopState state;
         UsbHandle usbHandle;
         UsbDevice device;
+
+
     };
 }
 

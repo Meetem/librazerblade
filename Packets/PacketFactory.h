@@ -29,6 +29,7 @@ namespace librazerblade {
         static RazerPacket applyChroma();
 
         static RazerPacket brightness(uint8_t brightness, BladePacketDirection direction = Set);
+        static RazerPacket boost(BladeBoostId boostId, uint8_t mode, BladePacketDirection direction);
     };
 }
 
