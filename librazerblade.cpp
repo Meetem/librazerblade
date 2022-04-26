@@ -257,9 +257,9 @@ librazerblade_PacketFactory_createRazerPacket(uint8_t command_class, BladePacket
 }
 
 DllExport RazerPacket
-CallType librazerblade_PacketFactory_fan(uint8_t fanSpeedDiv100, BladePacketDirection direction)
+CallType librazerblade_PacketFactory_fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction)
 {
-    return PacketFactory::fan(fanSpeedDiv100, direction);
+    return PacketFactory::fan(fanSpeedDiv100, fanId, direction);
 }
 
 DllExport RazerPacket
@@ -452,13 +452,13 @@ DllExport LaptopQueryResult CallType librazerblade_Laptop_queryRows(LaptopPtr se
     return instance->queryRows(rows, numRetries);
 }
 
-DllExport UsbPacketResult CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries)
+DllExport UsbPacketResult CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries, int fanId, int clampSpeed)
 {
     auto instance = (Laptop*) self;
     if (instance == nullptr)
         return {};
 
-    return instance->setFanSpeed(speed, numRetries);
+    return instance->setFanSpeed(speed, numRetries, fanId, clampSpeed);
 }
 
 DllExport UsbPacketResult

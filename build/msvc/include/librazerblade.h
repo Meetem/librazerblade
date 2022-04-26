@@ -56,7 +56,7 @@ librazerblade_PacketFactory_createRazerPacket(uint8_t command_class, BladePacket
                                               uint8_t size = 0);
 
 DllExport RazerPacket
-CallType librazerblade_PacketFactory_fan(uint8_t fanSpeedDiv100, BladePacketDirection direction = Set);
+CallType librazerblade_PacketFactory_fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction = Set);
 
 DllExport RazerPacket
 CallType librazerblade_PacketFactory_power(uint8_t powerMode, int32_t autoFanSpeed, BladePacketDirection direction = Set);
@@ -97,7 +97,7 @@ DllExport UsbPacketResult CallType librazerblade_Laptop_queryChromaRow(LaptopPtr
 DllExport LaptopQueryResult CallType librazerblade_Laptop_query(LaptopPtr self, BladeQuery query, int numRetries = 0);
 DllExport LaptopQueryResult
 CallType librazerblade_Laptop_queryRows(LaptopPtr self, BladeQueryRows rows, int numRetries = 0);
-DllExport UsbPacketResult CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries = 0);
+DllExport UsbPacketResult CallType librazerblade_Laptop_setFanSpeed(LaptopPtr self, int32_t speed, int numRetries = 0, int fanId = 1, int clampSpeed = 1);
 DllExport UsbPacketResult
 CallType librazerblade_Laptop_setPowerMode(LaptopPtr self, uint8_t powerMode, int32_t autoFanSpeed, int numRetries = 0);
 DllExport UsbPacketResult

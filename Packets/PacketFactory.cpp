@@ -51,14 +51,14 @@ namespace librazerblade {
         return new_report;
     }
 
-    RazerPacket PacketFactory::fan(uint8_t fanSpeedDiv100, BladePacketDirection direction)
+    RazerPacket PacketFactory::fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction)
     {
         if (direction == Get)
             fanSpeedDiv100 = 0;
 
         RazerPacket pkt = createRazerPacket(0x0d, PktFan, direction);
         pkt.args[0] = 0x00;
-        pkt.args[1] = 0x01;
+        pkt.args[1] = fanId;
         pkt.args[2] = fanSpeedDiv100;
         return pkt;
     }

@@ -70,7 +70,7 @@ namespace librazerblade {
     UsbPacketResult Laptop::queryFanSpeed(int numRetries)
     {
         LockGuard autoLock(laptopMutex);
-        auto pkt = PacketFactory::fan(0, Get);
+        auto pkt = PacketFactory::fan(0, 1, Get);
         auto output = PacketFactory::empty();
         auto result = sendPacketWithRetry(&pkt, &output, numRetries);
 
@@ -171,10 +171,16 @@ namespace librazerblade {
         return result;
     }
 
-    UsbPacketResult Laptop::setFanSpeed(int32_t speed, int numRetries)
+    UsbPacketResult Laptop::setFanSpeed(int32_t speed, int numRetries, int fanId, bool clampSpeed)
     {
+        if (speed < 0)
+            speed = 0;
+
         auto clamped = this->clampFan(speed);
-        auto pkt = PacketFactory::fan(clamped);
+        if (!clampSpeed)
+            clamped = speed / 100;
+
+        auto pkt = PacketFactory::fan(clamped, fanId, Set);
         auto output = PacketFactory::empty();
 
         auto r = sendPacketWithRetry(&pkt, &output, numRetries);
@@ -275,7 +281,7 @@ namespace librazerblade {
 
     Laptop::~Laptop()
     {
-        if(usbHandle.autoRelease){
+        if (usbHandle.autoRelease) {
             usbHandle.autoRelease = false;
             gUsb.closeHandle(usbHandle.handle, &device);
         }

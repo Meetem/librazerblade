@@ -20,7 +20,7 @@ namespace librazerblade {
         createRazerPacket(uint8_t command_class, BladePacketType type, BladePacketDirection direction = HostToDevice,
                           uint8_t size = 0);
 
-        static RazerPacket fan(uint8_t fanSpeedDiv100, BladePacketDirection direction = Set);
+        static RazerPacket fan(uint8_t fanSpeedDiv100, int fanId, BladePacketDirection direction);
 
         static RazerPacket power(uint8_t powerMode, bool autoFanSpeed, BladePacketDirection direction = Set);
 

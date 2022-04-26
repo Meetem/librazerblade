@@ -38,7 +38,7 @@ namespace librazerblade {
         UsbPacketResult queryChromaRow(int rowId, int numRetries = 0);
         LaptopQueryResult query(BladeQuery query, int numRetries = 0);
         LaptopQueryResult queryRows(BladeQueryRows rows, int numRetries = 0);
-        UsbPacketResult setFanSpeed(int32_t speed, int numRetries = 0);
+        UsbPacketResult setFanSpeed(int32_t speed, int numRetries = 0, int fanId = 1, bool clampSpeed = true);
         UsbPacketResult setPowerMode(uint8_t powerMode, bool autoFanSpeed, int numRetries = 0);
         UsbPacketResult setBrightness(uint8_t brightness, int numRetries = 0);
         UsbPacketResult applyChroma(int numRetries = 0);
